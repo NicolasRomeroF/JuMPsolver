@@ -5,173 +5,71 @@ lpModel = Model(with_optimizer(Cbc.Optimizer))
 @variable(lpModel, y[1:7], binary=true)
 @variable(lpModel, x[1:7,1:7], binary=true)
 
-@constraint(lpModel, x[1,1] + x[1,2] + x[1,3] + x[1,4] + x[1,5] + x[1,6] + x[1,7] == 1)
-@constraint(lpModel, x[2,1] + x[2,2] + x[2,3] + x[2,4] + x[2,5] + x[2,6] + x[2,7] == 1)
-@constraint(lpModel, x[3,1] + x[3,2] + x[3,3] + x[3,4] + x[3,5] + x[3,6] + x[3,7] == 1)
-@constraint(lpModel, x[4,1] + x[4,2] + x[4,3] + x[4,4] + x[4,5] + x[4,6] + x[4,7] == 1)
-@constraint(lpModel, x[5,1] + x[5,2] + x[5,3] + x[5,4] + x[5,5] + x[5,6] + x[5,7] == 1)
-@constraint(lpModel, x[6,1] + x[6,2] + x[6,3] + x[6,4] + x[6,5] + x[6,6] + x[6,7] == 1)
-@constraint(lpModel, x[7,1] + x[7,2] + x[7,3] + x[7,4] + x[7,5] + x[7,6] + x[7,7] == 1)
+for i=1:7
+    @constraint(lpModel, sum(x[i,j] for j=1:7) == 1)
+end
 
-@constraint(lpModel, x[1,1] - y[1] <= 0)
-@constraint(lpModel, x[1,2] - y[2] <= 0)
-@constraint(lpModel, x[1,3] - y[3] <= 0)
-@constraint(lpModel, x[1,4] - y[4] <= 0)
-@constraint(lpModel, x[1,5] - y[5] <= 0)
-@constraint(lpModel, x[1,6] - y[6] <= 0)
-@constraint(lpModel, x[1,7] - y[7] <= 0)
+for i=1:7
+    for j=1:7
+        @constraint(lpModel, x[i,j] - y[j] <= 0)
+    end
+end
 
-@constraint(lpModel, x[2,1] - y[1] <= 0)
-@constraint(lpModel, x[2,2] - y[2] <= 0)
-@constraint(lpModel, x[2,3] - y[3] <= 0)
-@constraint(lpModel, x[2,4] - y[4] <= 0)
-@constraint(lpModel, x[2,5] - y[5] <= 0)
-@constraint(lpModel, x[2,6] - y[6] <= 0)
-@constraint(lpModel, x[2,7] - y[7] <= 0)
+for i=1:7
+    @constraint(lpModel, x[1,i] + x[2,i] <= 1)
+end
 
-@constraint(lpModel, x[3,1] - y[1] <= 0)
-@constraint(lpModel, x[3,2] - y[2] <= 0)
-@constraint(lpModel, x[3,3] - y[3] <= 0)
-@constraint(lpModel, x[3,4] - y[4] <= 0)
-@constraint(lpModel, x[3,5] - y[5] <= 0)
-@constraint(lpModel, x[3,6] - y[6] <= 0)
-@constraint(lpModel, x[3,7] - y[7] <= 0)
+for i=1:7
+    @constraint(lpModel, x[1,i] + x[3,i] <= 1)
+end
 
-@constraint(lpModel, x[4,1] - y[1] <= 0)
-@constraint(lpModel, x[4,2] - y[2] <= 0)
-@constraint(lpModel, x[4,3] - y[3] <= 0)
-@constraint(lpModel, x[4,4] - y[4] <= 0)
-@constraint(lpModel, x[4,5] - y[5] <= 0)
-@constraint(lpModel, x[4,6] - y[6] <= 0)
-@constraint(lpModel, x[4,7] - y[7] <= 0)
+for i=1:7
+    @constraint(lpModel, x[1,i] + x[4,i] <= 1)
+end
 
-@constraint(lpModel, x[5,1] - y[1] <= 0)
-@constraint(lpModel, x[5,2] - y[2] <= 0)
-@constraint(lpModel, x[5,3] - y[3] <= 0)
-@constraint(lpModel, x[5,4] - y[4] <= 0)
-@constraint(lpModel, x[5,5] - y[5] <= 0)
-@constraint(lpModel, x[5,6] - y[6] <= 0)
-@constraint(lpModel, x[5,7] - y[7] <= 0)
+for i=1:7
+    @constraint(lpModel, x[1,i] + x[7,i] <= 1)
+end
 
-@constraint(lpModel, x[6,1] - y[1] <= 0)
-@constraint(lpModel, x[6,2] - y[2] <= 0)
-@constraint(lpModel, x[6,3] - y[3] <= 0)
-@constraint(lpModel, x[6,4] - y[4] <= 0)
-@constraint(lpModel, x[6,5] - y[5] <= 0)
-@constraint(lpModel, x[6,6] - y[6] <= 0)
-@constraint(lpModel, x[6,7] - y[7] <= 0)
+for i=1:7
+    @constraint(lpModel, x[2,i] + x[3,i] <= 1)
+end
 
-@constraint(lpModel, x[7,1] - y[1] <= 0)
-@constraint(lpModel, x[7,2] - y[2] <= 0)
-@constraint(lpModel, x[7,3] - y[3] <= 0)
-@constraint(lpModel, x[7,4] - y[4] <= 0)
-@constraint(lpModel, x[7,5] - y[5] <= 0)
-@constraint(lpModel, x[7,6] - y[6] <= 0)
-@constraint(lpModel, x[7,7] - y[7] <= 0)
+for i=1:7
+    @constraint(lpModel, x[2,i] + x[4,i] <= 1)
+end
 
-@constraint(lpModel, x[1,1] + x[2,1] <= 1)
-@constraint(lpModel, x[1,2] + x[2,2] <= 1)
-@constraint(lpModel, x[1,3] + x[2,3] <= 1)
-@constraint(lpModel, x[1,4] + x[2,4] <= 1)
-@constraint(lpModel, x[1,5] + x[2,5] <= 1)
-@constraint(lpModel, x[1,6] + x[2,6] <= 1)
-@constraint(lpModel, x[1,7] + x[2,7] <= 1)
+for i=1:7
+    @constraint(lpModel, x[2,i] + x[5,i] <= 1)
+end
 
-@constraint(lpModel, x[1,1] + x[3,1] <= 1)
-@constraint(lpModel, x[1,2] + x[3,2] <= 1)
-@constraint(lpModel, x[1,3] + x[3,3] <= 1)
-@constraint(lpModel, x[1,4] + x[3,4] <= 1)
-@constraint(lpModel, x[1,5] + x[3,5] <= 1)
-@constraint(lpModel, x[1,6] + x[3,6] <= 1)
-@constraint(lpModel, x[1,7] + x[3,7] <= 1)
+for i=1:7
+    @constraint(lpModel, x[2,i] + x[7,i] <= 1)
+end
 
-@constraint(lpModel, x[1,1] + x[4,1] <= 1)
-@constraint(lpModel, x[1,2] + x[4,2] <= 1)
-@constraint(lpModel, x[1,3] + x[4,3] <= 1)
-@constraint(lpModel, x[1,4] + x[4,4] <= 1)
-@constraint(lpModel, x[1,5] + x[4,5] <= 1)
-@constraint(lpModel, x[1,6] + x[4,6] <= 1)
-@constraint(lpModel, x[1,7] + x[4,7] <= 1)
+for i=1:7
+    @constraint(lpModel, x[3,i] + x[6,i] <= 1)
+end
 
-@constraint(lpModel, x[1,1] + x[7,1] <= 1)
-@constraint(lpModel, x[1,2] + x[7,2] <= 1)
-@constraint(lpModel, x[1,3] + x[7,3] <= 1)
-@constraint(lpModel, x[1,4] + x[7,4] <= 1)
-@constraint(lpModel, x[1,5] + x[7,5] <= 1)
-@constraint(lpModel, x[1,6] + x[7,6] <= 1)
-@constraint(lpModel, x[1,7] + x[7,7] <= 1)
+for i=1:7
+    @constraint(lpModel, x[3,i] + x[7,i] <= 1)
+end
 
-@constraint(lpModel, x[2,1] + x[3,1] <= 1)
-@constraint(lpModel, x[2,2] + x[3,2] <= 1)
-@constraint(lpModel, x[2,3] + x[3,3] <= 1)
-@constraint(lpModel, x[2,4] + x[3,4] <= 1)
-@constraint(lpModel, x[2,5] + x[3,5] <= 1)
-@constraint(lpModel, x[2,6] + x[3,6] <= 1)
-@constraint(lpModel, x[2,7] + x[3,7] <= 1)
+for i=1:7
+    @constraint(lpModel, x[4,i] + x[5,i] <= 1)
+end
 
-@constraint(lpModel, x[2,1] + x[4,1] <= 1)
-@constraint(lpModel, x[2,2] + x[4,2] <= 1)
-@constraint(lpModel, x[2,3] + x[4,3] <= 1)
-@constraint(lpModel, x[2,4] + x[4,4] <= 1)
-@constraint(lpModel, x[2,5] + x[4,5] <= 1)
-@constraint(lpModel, x[2,6] + x[4,6] <= 1)
-@constraint(lpModel, x[2,7] + x[4,7] <= 1)
+for i=1:7
+    @constraint(lpModel, x[4,i] + x[6,i] <= 1)
+end
 
-@constraint(lpModel, x[2,1] + x[5,1] <= 1)
-@constraint(lpModel, x[2,2] + x[5,2] <= 1)
-@constraint(lpModel, x[2,3] + x[5,3] <= 1)
-@constraint(lpModel, x[2,4] + x[5,4] <= 1)
-@constraint(lpModel, x[2,5] + x[5,5] <= 1)
-@constraint(lpModel, x[2,6] + x[5,6] <= 1)
-@constraint(lpModel, x[2,7] + x[5,7] <= 1)
+for i=1:7
+    @constraint(lpModel, x[5,i] + x[6,i] <= 1)
+end
 
-@constraint(lpModel, x[2,1] + x[7,1] <= 1)
-@constraint(lpModel, x[2,2] + x[7,2] <= 1)
-@constraint(lpModel, x[2,3] + x[7,3] <= 1)
-@constraint(lpModel, x[2,4] + x[7,4] <= 1)
-@constraint(lpModel, x[2,5] + x[7,5] <= 1)
-@constraint(lpModel, x[2,6] + x[7,6] <= 1)
-@constraint(lpModel, x[2,7] + x[7,7] <= 1)
-
-@constraint(lpModel, x[3,1] + x[6,1] <= 1)
-@constraint(lpModel, x[3,2] + x[6,2] <= 1)
-@constraint(lpModel, x[3,3] + x[6,3] <= 1)
-@constraint(lpModel, x[3,4] + x[6,4] <= 1)
-@constraint(lpModel, x[3,5] + x[6,5] <= 1)
-@constraint(lpModel, x[3,6] + x[6,6] <= 1)
-@constraint(lpModel, x[3,7] + x[6,7] <= 1)
-
-@constraint(lpModel, x[3,1] + x[7,1] <= 1)
-@constraint(lpModel, x[3,2] + x[7,2] <= 1)
-@constraint(lpModel, x[3,3] + x[7,3] <= 1)
-@constraint(lpModel, x[3,4] + x[7,4] <= 1)
-@constraint(lpModel, x[3,5] + x[7,5] <= 1)
-@constraint(lpModel, x[3,6] + x[7,6] <= 1)
-@constraint(lpModel, x[3,7] + x[7,7] <= 1)
-
-@constraint(lpModel, x[4,1] + x[5,1] <= 1)
-@constraint(lpModel, x[4,2] + x[5,2] <= 1)
-@constraint(lpModel, x[4,3] + x[5,3] <= 1)
-@constraint(lpModel, x[4,4] + x[5,4] <= 1)
-@constraint(lpModel, x[4,5] + x[5,5] <= 1)
-@constraint(lpModel, x[4,6] + x[5,6] <= 1)
-@constraint(lpModel, x[4,7] + x[5,7] <= 1)
-
-@constraint(lpModel, x[4,1] + x[6,1] <= 1)
-@constraint(lpModel, x[4,2] + x[6,2] <= 1)
-@constraint(lpModel, x[4,3] + x[6,3] <= 1)
-@constraint(lpModel, x[4,4] + x[6,4] <= 1)
-@constraint(lpModel, x[4,5] + x[6,5] <= 1)
-@constraint(lpModel, x[4,6] + x[6,6] <= 1)
-@constraint(lpModel, x[4,7] + x[6,7] <= 1)
-
-@constraint(lpModel, x[5,1] + x[6,1] <= 1)
-@constraint(lpModel, x[5,2] + x[6,2] <= 1)
-@constraint(lpModel, x[5,3] + x[6,3] <= 1)
-@constraint(lpModel, x[5,4] + x[6,4] <= 1)
-@constraint(lpModel, x[5,5] + x[6,5] <= 1)
-@constraint(lpModel, x[5,6] + x[6,6] <= 1)
-@constraint(lpModel, x[5,7] + x[6,7] <= 1)
+for i=1:7
+    @constraint(lpModel, x[6,i] + x[7,i] <= 1)
+end
 
 @constraint(lpModel, x[6,1] + x[7,1] <= 1)
 @constraint(lpModel, x[6,2] + x[7,2] <= 1)
@@ -181,7 +79,7 @@ lpModel = Model(with_optimizer(Cbc.Optimizer))
 @constraint(lpModel, x[6,6] + x[7,6] <= 1)
 @constraint(lpModel, x[6,7] + x[7,7] <= 1)
 
-@objective(lpModel, Min, y[1] + y[2] + y[3] + y[4] + y[5] + y[6] + y[7])
+@objective(lpModel, Min, sum(y[i] for i=1:7))
 
 JuMP.optimize!(lpModel)
 println("Results Y; $(JuMP.value.(y))")
