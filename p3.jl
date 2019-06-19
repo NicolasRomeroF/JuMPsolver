@@ -1,7 +1,7 @@
 using JuMP
-using Cbc
+using GLPK
 
-model_p3 = Model(with_optimizer(Cbc.Optimizer))
+model_p3 = Model(with_optimizer(GLPK.Optimizer))
 @variable(model_p3, x[1:18], binary=true)
 
 for i=9:14
