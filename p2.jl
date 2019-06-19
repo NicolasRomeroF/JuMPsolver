@@ -24,4 +24,4 @@ model_p2 = Model(with_optimizer(Cbc.Optimizer))
 
 JuMP.optimize!(model_p2)
 
-println("Results; $(JuMP.value.(x))")
+print("La solucion optima es: $(JuMP.objective_value(model_p2))\nPara los siguientes valores: $(JuMP.value.(x))\n-----\n")

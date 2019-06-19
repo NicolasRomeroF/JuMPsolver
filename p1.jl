@@ -14,6 +14,6 @@ end
 
 @objective(model_p1, Max, (5.3/100)x[1] + (6.2/100)x[2] + (5.1/100)x[3] + (4.9/100)x[4] + (6.5/100)x[5] + (3.4/100)x[6])
 
-JuMP.optimize!(model_p1)
+optimize!(model_p1)
 
-println("Results; $(JuMP.value.(x))")
+print("La solucion optima es: $(JuMP.objective_value(model_p1))\nPara los siguientes valores: $(JuMP.value.(x))\n-----\n")

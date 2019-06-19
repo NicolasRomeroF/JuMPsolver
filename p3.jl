@@ -23,4 +23,4 @@ end
                         
 JuMP.optimize!(model_p3)
 
-println("Results; $(JuMP.value.(x))")
+print("La solucion optima es: $(JuMP.objective_value(model_p3))\nPara los siguientes valores: $(JuMP.value.(x))\n-----\n")
